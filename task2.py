@@ -106,15 +106,11 @@ requests = [
 # ['GET', '/search', 204]
 
 # Завдання
-# 1. Вивести всі успішні запити (status_code = 200)
-for method, url, status_code in requests:
-    if status_code == 200:
-        print(method, url, status_code)
-
-# _ - замість назви змінної, якщо нам вона не потрібна
-for _, _, status_code in requests:
-    if status_code == 200:
-        print(status_code)
-
 # 2. Знайдіть унікальні URL, на яких виникали помилки (status_code != 200).
+unique_urls = set()
+for method, url, status in requests:
+    if status != 200:
+        unique_urls.add(url)
+
+print(unique_urls)
 
