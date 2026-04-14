@@ -1,3 +1,5 @@
+from pprint import pprint
+
 
 requests = [
     ('DELETE', '/orders/1', 200),
@@ -113,4 +115,16 @@ for method, url, status in requests:
         unique_urls.add(url)
 
 print(unique_urls)
+
+def my_compare(item):
+    return (item[0], item[2])
+
+requests.sort(key=my_compare)
+pprint(requests)
+
+requests.sort(key=lambda item: (item[0], item[2]))
+# pprint(requests)
+
+
+
 

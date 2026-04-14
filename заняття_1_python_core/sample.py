@@ -115,3 +115,26 @@ print(mySet6)
 
 mySet6 = mySet1 ^ mySet2 # symmetric difference | XOR
 print(mySet6)
+
+
+def my_function(name):
+    return f'hello, {name}'
+
+my_function('Max')
+
+
+# range
+for i in range(10):
+    print(i)
+
+
+def numbers_generator():
+    print("before 1")
+    yield 1
+    print("before 2")
+    yield 2
+    print("before 3")
+    yield 3
+
+
+numbers_generator()
