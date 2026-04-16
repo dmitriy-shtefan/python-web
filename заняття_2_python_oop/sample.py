@@ -1,3 +1,5 @@
+# closure (замикання)
+
 # global scope
 counter = 0
 
