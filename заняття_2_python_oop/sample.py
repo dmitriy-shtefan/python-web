@@ -21,6 +21,29 @@ def counter():
 
 inc = counter()
 
-print(inc())
-print(inc())
-print(inc())
+# print(inc())
+# print(inc())
+# print(inc())
+
+# Decorators
+
+def require_auth(func):
+
+    def inner(user):
+        print("Before function")
+        result = func(user)
+        print("After function")
+
+        return result
+
+    return inner
+
+@require_auth
+def user_call(user):
+    print(user)
+
+
+# new_func = require_auth(user_call)
+
+
+user_call({'name': 'Max'})
