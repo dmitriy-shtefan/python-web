@@ -113,7 +113,14 @@ products = [
 
 # 1. Знайти найдешевший товар у списку `products`
 
+_, _, lowest_price, _ = products[0]
+low_price_product = products[0]
+for id, name, price, category in products:
+    if price < lowest_price:
+        lowest_price = price
+        low_price_product = (id, name, price, category)
 
+print(low_price_product)
 
 
 # 2. Знайти всі унікальні категорії товарів
@@ -149,10 +156,6 @@ def create_category_filter(category):
 # Використання:
 # electronics_filter = create_category_filter("electronics")
 # list(filter(electronics_filter, products))
-
-
-
-
 
 
 # 7. Написати декоратор `show_calls`, який при кожному виклику функції виводить повідомлення: `Функцію викликано`
