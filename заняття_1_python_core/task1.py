@@ -120,4 +120,4 @@ for _, _, status_code in requests:
 
 list_of_goods = ['apple', 'banana']
 
-config_values = frozenset('s', 'v', 't')
+config_values = frozenset(['s', 'v', 't'])
