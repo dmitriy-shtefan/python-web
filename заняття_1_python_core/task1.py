@@ -118,3 +118,6 @@ for _, _, status_code in requests:
 
 # 2. Знайдіть унікальні URL, на яких виникали помилки (status_code != 200).
 
+list_of_goods = ['apple', 'banana']
+
+config_values = frozenset('s', 'v', 't')
