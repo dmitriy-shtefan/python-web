@@ -21,5 +21,6 @@ from . import views
 urlpatterns = [
     path('home/', views.home, name='home'),
     path('about/', views.about, name='about'),
+    path('list/', views.courses_list, name='courses_list'),
     path('<int:course_id>/', views.course_details, name='course_details'),
 ]
