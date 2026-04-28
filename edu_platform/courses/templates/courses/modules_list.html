@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="uk">
+<head>
+    <title>Освітня Платформа</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: auto 40px;
+            padding: 20px 0;
+        }
+
+        main {
+            margin-bottom: 30px;
+        }
+
+        nav {
+            margin-bottom: 30px;
+        }
+
+        nav a {
+            margin-right: 15px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            font-size: 14px;
+            padding-top: 20px;
+            color: #666;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <a href="{% url 'home' %}">Головна</a>
+    <a href="{% url 'courses_list' %}">Список Курсів</a>
+    <a href="{% url '' %}">Список Модулів</a>
+    <a href="{% url 'about' %}">Про Нас</a>
+</nav>
+
+<main>
+    <strong>Список Модулів</strong>
+
+    <ul>
+    {% for  in  %}
+        <li><a></a></li>
+    {% endfor %}
+    </ul>
+</main>
+
+<footer>
+    (c) {% now 'Y' %} Освітня Платформа
+</footer>
+</body>
+</html>

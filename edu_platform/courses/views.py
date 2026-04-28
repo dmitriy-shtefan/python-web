@@ -31,6 +31,14 @@ def course_details(request, course_id):
 
     return render(request, 'courses/course_details.html', context)
 
+
+def modules(request):
+    modules_list = get_modules_list()
+    context = {'modules_list': modules_list}
+
+    return render(request, '', context)
+
+
 def get_courses_list() -> list:
     return [
         {
