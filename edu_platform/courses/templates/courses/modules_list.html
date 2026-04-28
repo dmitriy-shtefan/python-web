@@ -40,7 +40,7 @@
 <nav>
     <a href="{% url 'home' %}">Головна</a>
     <a href="{% url 'courses_list' %}">Список Курсів</a>
-    <a href="{% url '' %}">Список Модулів</a>
+    <a href="{% url 'modules_list' %}">Список Модулів</a>
     <a href="{% url 'about' %}">Про Нас</a>
 </nav>
 
@@ -48,8 +48,10 @@
     <strong>Список Модулів</strong>
 
     <ul>
-    {% for  in  %}
-        <li><a></a></li>
+    {% for m in modules_list %}
+        <li><a>
+            {{ m.name }}
+        </a></li>
     {% endfor %}
     </ul>
 </main>

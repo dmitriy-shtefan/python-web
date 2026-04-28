@@ -36,7 +36,7 @@ def modules(request):
     modules_list = get_modules_list()
     context = {'modules_list': modules_list}
 
-    return render(request, '', context)
+    return render(request, 'courses/modules_list.html', context)
 
 
 def get_courses_list() -> list:
