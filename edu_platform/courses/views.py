@@ -1,18 +1,18 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.http import HttpRequest
 
 # home view
 def home(request):
-    http_method = request.method
-    return HttpResponse(f"""<h1>Home Page!</h1>
-                            <h3>HTTP Method: {http_method}</h3>
-                        """)
+
+    return render(request, 'courses/home.html')
 
 
 # about view
 def about(request):
-    pass
 
-def courses(request):
-    pass
+    return render(request, 'courses/about.html')
+
+
+# courses view
+def course_details(request, course_id):
+
+    return render(request, 'courses/course_details.html', {'course_id': course_id})
