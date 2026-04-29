@@ -1,31 +1,75 @@
 <!doctype html>
 <html lang="uk">
 <head>
-    <title>Освітня Платформа</title>
+    <meta charset="utf-8">
+    <title>Головна | Освітня Платформа</title>
 
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: auto 40px;
-            padding: 20px 0;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 24px;
+            line-height: 1.5;
         }
 
-        main {
-            margin-bottom: 30px;
+        header {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .brand {
+            font-size: 24px;
+            font-weight: bold;
         }
 
         nav {
-            margin-bottom: 30px;
+            margin-top: 12px;
         }
 
         nav a {
             margin-right: 15px;
             text-decoration: none;
+            color: #0b57d0;
         }
 
         nav a:hover {
             text-decoration: underline;
+        }
+
+        .page-layout {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+
+        .sidebar {
+            padding: 16px;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+        }
+
+        .sidebar h2 {
+            margin-top: 0;
+            font-size: 18px;
+        }
+
+        .sidebar ul {
+            margin-bottom: 0;
+            padding-left: 20px;
+        }
+
+        .course-card {
+            margin-bottom: 16px;
+            padding: 16px;
+            border: 1px solid #ddd;
+        }
+
+        .course-card h2 {
+            margin-top: 0;
+            font-size: 20px;
         }
 
         footer {
@@ -37,15 +81,37 @@
     </style>
 </head>
 <body>
-<nav>
-    <a href="{% url 'home' %}">Головна</a>
-    <a href="{% url 'courses_list' %}">Список Курсів</a>
-    <a href="{% url 'about' %}">Про Нас</a>
-</nav>
+<header>
+    <div class="brand">Освітня Платформа</div>
+    <nav>
+        <a href="{% url 'home' %}">Головна</a>
+        <a href="{% url 'courses_list' %}">Список Курсів</a>
+        <a href="{% url 'modules_list' %}">Список Модулів</a>
+        <a href="{% url 'about' %}">Про Нас</a>
+    </nav>
+</header>
 
-<main>
-    Головна сторінка
-</main>
+<div class="page-layout">
+    <aside class="sidebar">
+        <h2>Навігація</h2>
+        <ul>
+            <li><a href="{% url 'courses_list' %}">Усі курси</a></li>
+            <li><a href="{% url 'modules_list' %}">Модулі Django</a></li>
+            <li><a href="{% url 'about' %}">Про платформу</a></li>
+        </ul>
+    </aside>
+
+    <main>
+        <h1>Головна сторінка</h1>
+        <p>Оберіть курс або перегляньте навчальні модулі.</p>
+
+        <section class="course-card">
+            <h2>Розробка веб-додатків на Python</h2>
+            <p>Курс про Django, шаблони, маршрути, моделі та роботу з даними.</p>
+            <a href="{% url 'courses_list' %}">Перейти до курсів</a>
+        </section>
+    </main>
+</div>
 
 <footer>
     (c) 2026 Освітня Платформа
