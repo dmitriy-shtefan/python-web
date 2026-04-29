@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Освітня платформа{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/site.css' %}">
+</head>
+<body>
+<header class="site-header">
+    <div class="container">
+        <strong class="brand">Освітня платформа</strong>
+        {% include "courses/includes/nav.html" %}
+    </div>
+</header>
+
+<main class="container">
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+        (c) 2026 Освітня платформа
+    </div>
+</footer>
+</body>
+</html>

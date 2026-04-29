@@ -1,54 +1,11 @@
-<!doctype html>
-<html lang="uk">
-<head>
-    <title>Освітня Платформа</title>
+<p>Цей текст не має бути поза block.</p>
+{% extends "courses/layout.html" %}
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: auto 40px;
-            padding: 20px 0;
-        }
+{% block title %}Головна{% endblock %}
 
-        main {
-            margin-bottom: 30px;
-        }
-
-        nav {
-            margin-bottom: 30px;
-        }
-
-        nav a {
-            margin-right: 15px;
-            text-decoration: none;
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-
-        footer {
-            font-size: 14px;
-            padding-top: 20px;
-            color: #666;
-            border-top: 1px solid #ddd;
-        }
-    </style>
-</head>
-<body>
-<nav>
-    <a href="{% url 'home' %}">Головна</a>
-    <a href="{% url 'courses_list' %}">Список Курсів</a>
-    <a href="{% url 'about' %}">Про Нас</a>
-</nav>
-
-<main>
-    Головна сторінка
-</main>
-
-<footer>
-    (c) 2026 Освітня Платформа
-</footer>
-</body>
-</html>
+{% block main %}
+<section class="page-card">
+    <h1>Головна сторінка</h1>
+    <p>Тут має бути короткий опис освітньої платформи.</p>
+</section>
+{% endblock %}
