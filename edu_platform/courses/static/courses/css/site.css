@@ -1,18 +1,38 @@
 body {
-    margin: 0;
     font-family: Arial, sans-serif;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px;
     color: #1f2937;
-    background: #f3f4f6;
+    line-height: 1.5;
+    background: #ffffff;
+}
+
+a {
+    color: #0b57d0;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+header,
+.site-header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #ddd;
+    background: #ffffff;
+}
+
+.brand {
+    font-size: 24px;
+    font-weight: bold;
 }
 
 .container {
-    width: min(100% - 32px, 860px);
-    margin: 0 auto;
-}
-
-.site-header {
-    background: #ffffff;
-    border-bottom: 1px solid #d1d5db;
+    width: auto;
+    margin: 0;
 }
 
 .site-header .container {
@@ -20,40 +40,88 @@ body {
     align-items: center;
     justify-content: space-between;
     gap: 24px;
-    padding: 16px 0;
+    padding: 0;
 }
 
-.brand {
+nav,
+.site-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 12px;
+}
+
+body > nav {
+    margin-bottom: 24px;
+}
+
+main,
+main.container {
+    margin-bottom: 32px;
+    padding: 0;
+}
+
+.page-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 32px;
+    margin-bottom: 32px;
+}
+
+.sidebar {
+    padding: 16px;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+}
+
+.sidebar h2 {
+    margin-top: 0;
+    font-size: 18px;
+}
+
+.sidebar ul {
+    margin-bottom: 0;
+    padding-left: 20px;
+}
+
+.course-card,
+.page-card {
+    margin-bottom: 16px;
+    padding: 16px;
+    border: 1px solid #ddd;
+    background: #ffffff;
+}
+
+.course-card h2,
+.page-card h2 {
+    margin-top: 0;
     font-size: 20px;
 }
 
-.site-nav {
-    display: flex;
-    gap: 16px;
+label {
+    font-weight: bold;
 }
 
-.site-nav a {
-    color: #2563eb;
-    text-decoration: none;
-}
-
-.site-nav a:hover {
-    text-decoration: underline;
-}
-
-main.container {
-    padding: 32px 0;
-}
-
-.page-card {
-    padding: 24px;
-    background: #ffffff;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-}
-
+footer,
 .site-footer {
-    padding: 24px 0;
-    color: #6b7280;
-    border-top: 1px solid #d1d5db;
+    font-size: 14px;
+    padding-top: 20px;
+    color: #666;
+    border-top: 1px solid #ddd;
+}
+
+@media (max-width: 720px) {
+    body {
+        padding: 16px;
+    }
+
+    .page-layout {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .site-header .container {
+        align-items: flex-start;
+        flex-direction: column;
+    }
 }
