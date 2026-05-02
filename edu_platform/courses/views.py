@@ -1,4 +1,11 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
+
+
+# index
+def index(request):
+    return redirect('home')
+
 
 # home view
 def home(request):
