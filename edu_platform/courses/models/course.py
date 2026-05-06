@@ -10,7 +10,7 @@ class Course(models.Model):
 
     name = models.CharField(max_length=200)
     description = models.TextField()
-    author = models.CharField(max_length=200)
+    author = models.CharField(max_length=200, null=True, blank=True)
     level = models.CharField(max_length=32, choices=LEVELS, default='beginner')
     is_test = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
