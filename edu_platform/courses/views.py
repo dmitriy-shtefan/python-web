@@ -1,5 +1,9 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404
+
+
+from .models import Course
 
 
 # index
@@ -20,19 +24,19 @@ def about(request):
 
 # courses_list view
 def courses_list(request):
-    context = {'courses_list': get_courses_list()}
+    courses = Course.objects.all()
+
+    context = {'courses_list': courses}
 
     return render(request, 'courses/courses_list.html', context)
 
 
 # courses view
 def course_details(request, course_id):
-    courses_list = get_courses_list()
+    # класичний спосіб, але потрібно обробляти винятки
+    # course = Course.objects.get(pk=course_id)
 
-    course = None
-    for c in courses_list:
-        if c['id'] == course_id:
-            course = c
+    course = get_object_or_404(Course, pk=course_id)
 
     context = {'course': course}
 
