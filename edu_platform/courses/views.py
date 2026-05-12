@@ -3,9 +3,11 @@ from django.shortcuts import redirect
 from django.shortcuts import get_object_or_404
 
 from django.views.generic import TemplateView
-
+from django.views.generic import ListView
+from django.views.generic import DetailView
 
 from .models import Course
+from .models import Module
 
 
 # index
@@ -13,85 +15,32 @@ def index(request):
     return redirect('home')
 
 
-# home view (FBV)
-def home(request):
-    return render(request, 'courses/home.html')
-
-
 # home view (CBV)
 class HomeView(TemplateView):
     template_name = 'courses/home.html'
 
 
-
 # about view
-def about(request):
-
-    return render(request, 'courses/about.html')
-
-# courses_list view
-def courses_list(request):
-    courses = Course.objects.all()
-
-    context = {'courses_list': courses}
-
-    return render(request, 'courses/courses_list.html', context)
+class AboutView(TemplateView):
+    template_name = 'courses/about.html'
 
 
-# courses view
-def course_details(request, course_id):
-    # класичний спосіб, але потрібно обробляти винятки
-    # course = Course.objects.get(pk=course_id)
-
-    course = get_object_or_404(Course, pk=course_id)
-
-    context = {'course': course}
-
-    return render(request, 'courses/course_details.html', context)
+# Class Based View
+class CoursesListView(ListView):
+    template_name = 'courses/courses_list.html'
+    model = Course
+    context_object_name = 'courses_list'
 
 
-def modules(request):
-    modules_list = get_modules_list()
-    context = {'modules_list': modules_list}
+# Class Based View
+class CourseDetailsView(DetailView):
+    template_name = 'courses/course_details.html'
+    model = Course
+    context_object_name = 'course'
 
-    return render(request, 'courses/modules_list.html', context)
 
+class ModulesListView(ListView):
+    template_name = 'courses/modules_list.html'
+    model = Module
+    context_object_name = 'modules_list'
 
-def get_courses_list() -> list:
-    return [
-        {
-            "id": 1,
-            "name": "Об’єктно-орієнтоване програмування (C++)",
-            "description": "Вивчення класів, об'єктів, наслідування та основ ООП на мові C++."
-        },
-        {
-            "id": 2,
-            "name": "Теорія баз даних",
-            "description": "Основи роботи з базами даних, SQL-запити та проєктування таблиць."
-        },
-        {
-            "id": 3,
-            "name": "Web (HTML + CSS)",
-            "description": "Створення веб-сторінок за допомогою HTML та стилізація з CSS."
-        },
-        {
-            "id": 4,
-            "name": "Розробка веб-додатків на Python",
-            "description": "Створення серверної логіки веб-додатків на Python (Django), робота з базами даних та обробка HTTP-запитів."
-        },
-    ]
-
-def get_modules_list() -> list:
-    return [
-        {"name": "Django: Setup",            "number_of_classes": 2},
-        {"name": "Django: Templates",        "number_of_classes": 4},
-        {"name": "Django: Models",           "number_of_classes": 6},
-        {"name": "Django: Views",            "number_of_classes": 5},
-        {"name": "Django: URLs",             "number_of_classes": 3},
-        {"name": "Django: Forms",            "number_of_classes": 4},
-        {"name": "Django: Admin",            "number_of_classes": 2},
-        {"name": "Django: Authentication",   "number_of_classes": 5},
-        {"name": "Django: ORM Advanced",     "number_of_classes": 6},
-        {"name": "Django: REST API",         "number_of_classes": 7},
-        {"name": "Django: Testing",          "number_of_classes": 3},
-    ]

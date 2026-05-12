@@ -16,14 +16,17 @@ Including another URLconf
 """
 
 from django.urls import path
-from . import views
+
 from .views import HomeView
+from .views import AboutView
+from .views import CoursesListView
+from .views import CourseDetailsView
+from .views import ModulesListView
 
 urlpatterns = [
-    # path('home/', views.home, name='home'),
     path('home/', HomeView.as_view(), name='home'),
-    path('about/', views.about, name='about'),
-    path('list/', views.courses_list, name='courses_list'),
-    path('<int:course_id>/', views.course_details, name='course_details'),
-    path('modules/list/', views.modules, name='modules_list'),
+    path('about/', AboutView.as_view(), name='about'),
+    path('list/', CoursesListView.as_view(), name='courses_list'),
+    path('<int:pk>/', CourseDetailsView.as_view(), name='course_details'),
+    path('modules/list/', ModulesListView.as_view(), name='modules_list'),
 ]
