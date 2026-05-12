@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.shortcuts import get_object_or_404
 
+from django.views.generic import TemplateView
+
 
 from .models import Course
 
@@ -11,10 +13,15 @@ def index(request):
     return redirect('home')
 
 
-# home view
+# home view (FBV)
 def home(request):
-
     return render(request, 'courses/home.html')
+
+
+# home view (CBV)
+class HomeView(TemplateView):
+    template_name = 'courses/home.html'
+
 
 
 # about view

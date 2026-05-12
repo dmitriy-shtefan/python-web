@@ -17,9 +17,11 @@ Including another URLconf
 
 from django.urls import path
 from . import views
+from .views import HomeView
 
 urlpatterns = [
-    path('home/', views.home, name='home'),
+    # path('home/', views.home, name='home'),
+    path('home/', HomeView.as_view(), name='home'),
     path('about/', views.about, name='about'),
     path('list/', views.courses_list, name='courses_list'),
     path('<int:course_id>/', views.course_details, name='course_details'),
