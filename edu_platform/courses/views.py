@@ -9,6 +9,8 @@ from django.views.generic import DetailView
 from .models import Course
 from .models import Module
 
+from .forms import TeacherQuestionForm
+
 
 # index
 def index(request):
@@ -44,3 +46,13 @@ class ModulesListView(ListView):
     model = Module
     context_object_name = 'modules_list'
 
+
+def ask_question(request):
+    if request.method == 'POST':
+        form = TeacherQuestionForm(request.POST)
+        if form.is_valid():
+            return render(request, 'courses/question_sent.html', {'data': form.cleaned_data})
+    else:
+        form = TeacherQuestionForm()
+
+    return render(request, 'courses/ask_question.html', {'form': form})

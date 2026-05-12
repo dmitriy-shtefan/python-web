@@ -22,11 +22,13 @@ from .views import AboutView
 from .views import CoursesListView
 from .views import CourseDetailsView
 from .views import ModulesListView
+from .views import ask_question
 
 urlpatterns = [
-    path('home/', HomeView.as_view(), name='home'),
+    path('', HomeView.as_view(), name='home'),
     path('about/', AboutView.as_view(), name='about'),
-    path('list/', CoursesListView.as_view(), name='courses_list'),
-    path('<int:pk>/', CourseDetailsView.as_view(), name='course_details'),
+    path('courses/list/', CoursesListView.as_view(), name='courses_list'),
+    path('courses/<int:pk>/', CourseDetailsView.as_view(), name='course_details'),
     path('modules/list/', ModulesListView.as_view(), name='modules_list'),
+    path('ask-question/', ask_question, name='ask_question')
 ]
