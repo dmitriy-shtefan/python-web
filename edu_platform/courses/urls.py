@@ -23,6 +23,7 @@ from .views import CoursesListView
 from .views import CourseDetailsView
 from .views import ModulesListView
 from .views import ask_question
+from .views import enroll_course
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
@@ -30,5 +31,6 @@ urlpatterns = [
     path('courses/list/', CoursesListView.as_view(), name='courses_list'),
     path('courses/<int:pk>/', CourseDetailsView.as_view(), name='course_details'),
     path('modules/list/', ModulesListView.as_view(), name='modules_list'),
-    path('ask-question/', ask_question, name='ask_question')
+    path('ask-question/', ask_question, name='ask_question'),
+    path('enroll-course/', enroll_course, name='enroll_course')
 ]

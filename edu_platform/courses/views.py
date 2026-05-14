@@ -13,6 +13,7 @@ from .models import Course
 from .models import Module
 
 from .forms import TeacherQuestionForm
+from .forms import EnrollmentForm
 
 
 # index
@@ -60,3 +61,14 @@ def ask_question(request):
         form = TeacherQuestionForm()
 
     return render(request, 'courses/ask_question.html', {'form': form})
+
+
+@login_required
+def enroll_course(request):
+    if request.method == 'POST':
+        form = EnrollmentForm(request.POST)
+    else:
+        form = EnrollmentForm()
+
+    return render(request, 'courses/enroll_course.html', {'form': form})
+
