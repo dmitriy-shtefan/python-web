@@ -10,7 +10,7 @@ class TeacherQuestionForm(forms.Form):
         clean_question = self.cleaned_data['question']
 
         if '???' in clean_question:
-            return forms.ValidationError('Можна будь-ласка без трьох знаків питання?')
+            raise forms.ValidationError('Можна будь-ласка без трьох знаків питання?')
 
         return clean_question
 

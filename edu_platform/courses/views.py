@@ -6,6 +6,9 @@ from django.views.generic import TemplateView
 from django.views.generic import ListView
 from django.views.generic import DetailView
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from .models import Course
 from .models import Module
 
@@ -23,7 +26,7 @@ class HomeView(TemplateView):
 
 
 # about view
-class AboutView(TemplateView):
+class AboutView(LoginRequiredMixin, TemplateView):
     template_name = 'courses/about.html'
 
 
@@ -47,6 +50,7 @@ class ModulesListView(ListView):
     context_object_name = 'modules_list'
 
 
+@login_required
 def ask_question(request):
     if request.method == 'POST':
         form = TeacherQuestionForm(request.POST)

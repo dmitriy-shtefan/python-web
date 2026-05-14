@@ -1,0 +1,19 @@
+{% extends 'courses/base.html' %}
+
+{% block title %}Освітня Платформа - Авторизація{% endblock %}
+
+{% block main %}
+    
+    <h1>Вхід</h1>
+    
+    {% if form.errors %}
+        <p>Неправильний username або пароль</p>
+    {% endif %}
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Вхід</button>
+    </form>
+    
+{% endblock %}
