@@ -1,0 +1,18 @@
+{% extends 'courses/base.html' %}
+
+{% block title %}Освітня Платформа - Мої Курси{% endblock %}
+
+{% block main %}
+<main>
+    <strong>Мої Курси</strong>
+
+    <ul>
+    {% for enrollment in enrollments %}
+        <li><a href="{% url 'course_details' enrollment.course.id %}">{{ enrollment.course.name }}</a></li>
+    {% empty %}
+        Ви ще не записані на курси
+    {% endfor %}
+    </ul>
+</main>
+{% endblock %}
+

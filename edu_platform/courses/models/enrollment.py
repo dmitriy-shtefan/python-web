@@ -5,8 +5,8 @@ from . import Course
 
 
 class Enrollment(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    student = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='enrollments')
+    student = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='enrollments')
 
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)

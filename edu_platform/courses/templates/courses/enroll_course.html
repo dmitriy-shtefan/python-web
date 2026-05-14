@@ -1,0 +1,15 @@
+{% extends 'courses/base.html' %}
+
+{% block title %}Освітня Платформа - Запис на Курс{% endblock %}
+
+{% block main %}
+    
+    <h1>Запис на Курс</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Записатися</button>
+    </form>
+    
+{% endblock %}

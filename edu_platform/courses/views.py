@@ -11,6 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Course
 from .models import Module
+from .models import Enrollment
 
 from .forms import TeacherQuestionForm
 from .forms import EnrollmentForm
@@ -67,8 +68,26 @@ def ask_question(request):
 def enroll_course(request):
     if request.method == 'POST':
         form = EnrollmentForm(request.POST)
+        if form.is_valid():
+            course = form.cleaned_data['course']
+            exists = Enrollment.objects.filter(student=request.user, course=course, is_active=True).exists()
+
+            if exists:
+                form.add_error('course', 'Ви вже записані на цей курс')
+            else:
+                enrollment = form.save(commit=False)
+                enrollment.student = request.user
+                enrollment.save()
+
+                return redirect('my_courses')
     else:
         form = EnrollmentForm()
 
     return render(request, 'courses/enroll_course.html', {'form': form})
 
+
+@login_required
+def my_courses(request):
+    enrollments = Enrollment.objects.filter(student=request.user).select_related('course')
+
+    return render(request, 'courses/my_courses.html', {'enrollments': enrollments})

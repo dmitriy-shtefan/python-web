@@ -6,3 +6,7 @@ class EnrollmentForm(forms.ModelForm):
     class Meta:
         model = Enrollment
         fields = ['course']
+
+        labels = {
+            'course': 'Курс'
+        }
