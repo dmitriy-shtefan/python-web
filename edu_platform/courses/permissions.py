@@ -10,8 +10,8 @@ def is_teacher(user):
 
 
 def is_student(user):
-    if user.is_authenticated and hasattr(user, 'profile'):
-        print(user.profile)
-        if hasattr(user.profile, 'role'):
-            return user.profile.role == Profile.ROLE_STUDENT
-    return False
+    return (
+        user.is_authenticated
+        and hasattr(user, 'profile')
+        and user.profile.role == Profile.ROLE_STUDENT
+    )
