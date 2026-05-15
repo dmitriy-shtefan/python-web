@@ -17,6 +17,7 @@ from .models import Enrollment
 
 from .forms import TeacherQuestionForm
 from .forms import EnrollmentForm
+from .forms import CourseForm
 
 from .permissions import is_teacher
 from .permissions import is_student
@@ -105,3 +106,29 @@ def teacher_dashboard(request):
     courses = Course.objects.filter(teacher=request.user).prefetch_related('enrollments', 'modules')
 
     return render(request, 'courses/teacher_dashboard.html', {'courses': courses})
+
+
+@login_required
+@user_passes_test(is_teacher)
+def create_course(request):
+    if request.method == 'POST':
+        form = CourseForm(request.POST)
+        if form.is_valid():
+            course = form.save(commit=False)
+            course.teacher = request.user
+            course.save()
+
+            messages.success(request, 'Курс було успішно створено!')
+            return redirect('teacher_dashboard')
+    else:
+        form = CourseForm()
+
+    return render(request,'courses/create_course.html', {'form': form})
+
+
+def update_course(request):
+    pass
+
+
+def delete_course(request):
+    pass

@@ -1,2 +1,3 @@
 from .teacher_question import TeacherQuestionForm
-from .enrollment_form import EnrollmentForm
+from .enrollment import EnrollmentForm
+from .course import CourseForm

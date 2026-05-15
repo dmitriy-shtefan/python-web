@@ -19,8 +19,8 @@
                         <p><a href="{% url 'course_details' course.id %}">{{ course.name }}</a></p>
                         <p>Кількість Модулів: {{ course.modules.count }}</p>
                         <p>Кількість Активних Студентів на Курсі: {{ course.enrollments.count }}</p>
-                        <p><a href="{% url 'update_course' %}">Редагувати</a></p>
-                        <p><a href="{% url 'delete_course' %}">Видалити</a></p>
+                        <p><a href="{% url 'update_course' course.id %}">Редагувати</a></p>
+                        <p><a href="{% url 'delete_course' course.id %}">Видалити</a></p>
                     </li>
                 {% endfor %}
             </ul>
@@ -29,7 +29,7 @@
 
 
     {% endif %}
-    
+
 </main>
 {% endblock %}
 
