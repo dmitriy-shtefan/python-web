@@ -1,15 +1,15 @@
 <nav>
-    <p>
+    <div class="nav-links">
         <a href="{% url 'home' %}">Головна</a>
         <a href="{% url 'courses_list' %}">Список Курсів</a>
         {% if request.user.is_authenticated %}
             <a href="{% url 'my_courses' %}">Мої Курси</a>
-            <a href="{% url 'enroll_course' %}">Запис на Курс</a>
+            <a href="{% url 'enroll_course' %}">Записатися на Курс</a>
         {% endif %}
         <a href="{% url 'about' %}">Про Нас</a>
-    </p>
+    </div>
 
-    <p>
+    <div class="nav-auth">
         {% if request.user.is_authenticated %}
             <span>Користувач: {{ request.user.username }}</span>
             <form method="post" action="{% url 'logout' %}">
@@ -17,8 +17,7 @@
                 <button type="submit">Вийти</button>
             </form>
         {% else %}
-            <a href="{% url 'login' %}">Увійти</a>
+            <a class="auth-link" href="{% url 'login' %}">Увійти</a>
         {% endif %}
-    </p>
-
+    </div>
 </nav>
