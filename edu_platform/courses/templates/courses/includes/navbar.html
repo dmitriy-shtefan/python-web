@@ -2,9 +2,12 @@
     <div class="nav-links">
         <a href="{% url 'home' %}">Головна</a>
         <a href="{% url 'courses_list' %}">Список Курсів</a>
-        {% if request.user.is_authenticated %}
+        {% if request.user.is_authenticated and request.user.profile.role == 'student' %}
             <a href="{% url 'my_courses' %}">Мої Курси</a>
             <a href="{% url 'enroll_course' %}">Записатися на Курс</a>
+        {% endif %}
+        {% if request.user.is_authenticated and request.user.profile.role == 'teacher' %}
+            <a href="{% url 'teacher_dashboard' %}">Мої Курси</a>
         {% endif %}
         <a href="{% url 'about' %}">Про Нас</a>
     </div>

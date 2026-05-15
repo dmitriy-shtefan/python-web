@@ -25,14 +25,19 @@ from .views import ModulesListView
 from .views import ask_question
 from .views import enroll_course
 from .views import my_courses
+from .views import teacher_dashboard
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
     path('about/', AboutView.as_view(), name='about'),
     path('courses/list/', CoursesListView.as_view(), name='courses_list'),
     path('courses/<int:pk>/', CourseDetailsView.as_view(), name='course_details'),
+    path('courses/create/', ..., name='create_course'),
+    path('courses/<int:pk>/update/', ..., name='update_course'),
+    path('courses/<int:pk>/delete/', ..., name='delete_course'),
     path('modules/list/', ModulesListView.as_view(), name='modules_list'),
     path('ask-question/', ask_question, name='ask_question'),
     path('my-courses/', my_courses, name='my_courses'),
-    path('enroll-course/', enroll_course, name='enroll_course')
+    path('enroll-course/', enroll_course, name='enroll_course'),
+    path('teacher-dashboard/', teacher_dashboard, name='teacher_dashboard')
 ]

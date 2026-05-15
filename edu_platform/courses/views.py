@@ -97,3 +97,11 @@ def my_courses(request):
     enrollments = Enrollment.objects.filter(student=request.user).select_related('course')
 
     return render(request, 'courses/my_courses.html', {'enrollments': enrollments})
+
+
+@login_required
+@user_passes_test(is_teacher)
+def teacher_dashboard(request):
+    courses = Course.objects.filter(teacher=request.user).prefetch_related('enrollments', 'modules')
+
+    return render(request, 'courses/teacher_dashboard.html', {'courses': courses})

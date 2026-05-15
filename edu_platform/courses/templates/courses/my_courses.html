@@ -7,7 +7,12 @@
     <strong>Мої Курси</strong>
 
     <ul>
+    {# SELECT * FROM enrollments #}
+    {#    INNER JOIN courses ON enrollments.course = courses.id #}
+    {#    WHERE student = student_id #}
+
     {% for enrollment in enrollments %}
+        {# SELECT * FROM courses WHERE course = enrollment.course.id #}
         <li><a href="{% url 'course_details' enrollment.course.id %}">{{ enrollment.course.name }}</a></li>
     {% empty %}
         Ви ще не записані на курси

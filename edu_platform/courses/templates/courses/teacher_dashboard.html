@@ -1,0 +1,35 @@
+{% extends 'courses/base.html' %}
+
+{% block title %}Освітня Платформа - Курси Викладача{% endblock %}
+
+{% block main %}
+<main>
+    <strong>Мої Курси</strong>
+
+    {% if courses %}
+        <div>
+            <a href="{% url 'create_course' %}">Створити Новий Курс</a>
+        </div>
+
+        <p></p>
+        <div>
+            <ul>
+                {% for course in courses %}
+                    <li>
+                        <p><a href="{% url 'course_details' course.id %}">{{ course.name }}</a></p>
+                        <p>Кількість Модулів: {{ course.modules.count }}</p>
+                        <p>Кількість Активних Студентів на Курсі: {{ course.enrollments.count }}</p>
+                        <p><a href="{% url 'update_course' %}">Редагувати</a></p>
+                        <p><a href="{% url 'delete_course' %}">Видалити</a></p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+
+
+    {% endif %}
+    
+</main>
+{% endblock %}
+
