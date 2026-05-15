@@ -8,6 +8,7 @@ from django.views.generic import DetailView
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 
 from .models import Course
 from .models import Module
@@ -78,7 +79,7 @@ def enroll_course(request):
                 enrollment = form.save(commit=False)
                 enrollment.student = request.user
                 enrollment.save()
-
+                messages.success(request=request, message='Ви успішно записалися на новий курс!')
                 return redirect('my_courses')
     else:
         form = EnrollmentForm()

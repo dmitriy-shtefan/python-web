@@ -11,6 +11,12 @@
 
 {% include 'courses/includes/navbar.html' %}
 
+{% if messages %}
+    {% for message in messages %}
+        <div class="message message-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
 {% block main %}
 {% endblock %}
 
