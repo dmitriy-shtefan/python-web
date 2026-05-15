@@ -7,6 +7,7 @@ from django.views.generic import ListView
 from django.views.generic import DetailView
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 
@@ -16,6 +17,9 @@ from .models import Enrollment
 
 from .forms import TeacherQuestionForm
 from .forms import EnrollmentForm
+
+from .permissions import is_teacher
+from .permissions import is_student
 
 
 # index
@@ -66,6 +70,7 @@ def ask_question(request):
 
 
 @login_required
+@user_passes_test(is_student)
 def enroll_course(request):
     if request.method == 'POST':
         form = EnrollmentForm(request.POST)
