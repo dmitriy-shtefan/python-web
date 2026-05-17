@@ -1,0 +1,17 @@
+{% extends 'courses/base.html' %}
+
+{% block title %}Освітня Платформа - Видалення Курсу{% endblock %}
+
+{% block main %}
+<main>
+    <h1>Видалення курсу</h1>
+
+    <p>Ви точно хочете видалити курс "{{ course.name }}"?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Так, видалити</button>
+        <a href="{% url 'teacher_dashboard' %}">Скасувати</a>
+    </form>
+</main>
+{% endblock %}
