@@ -5,8 +5,10 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework import status
 
 from .serializers import CourseSerializer
+from .serializers import EnrollmentSerializer
 
 from .models import Course
+from .models import Enrollment
 
 
 @api_view(["GET", "POST"])
@@ -25,3 +27,10 @@ def course_list_api(request):
         return Response(result_serializer.data, status=status.HTTP_201_CREATED)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["GET"])
+def enrollments_list_api(request):
+    enrollments = Enrollment.objects.all().select_related('course', 'student')
+    serializer = EnrollmentSerializer(enrollments, many=True)
+    return Response(serializer.data)

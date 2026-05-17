@@ -31,6 +31,7 @@ from .views import course_update
 from .views import course_delete
 
 from .api_views import course_list_api
+from .api_views import enrollments_list_api
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
@@ -47,4 +48,5 @@ urlpatterns = [
     path('teacher/dashboard/', teacher_dashboard, name='teacher_dashboard'),
     # DRF API urls
     path("api/courses/", course_list_api, name="course_list_api"),
+    path("api/enrollments/", enrollments_list_api, name="enrollments_list_api"),
 ]
