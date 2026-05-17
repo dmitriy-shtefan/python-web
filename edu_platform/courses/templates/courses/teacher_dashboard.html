@@ -8,7 +8,7 @@
 
     {% if courses %}
         <div>
-            <a href="{% url 'create_course' %}">Створити курс</a>
+            <a href="{% url 'course_create' %}">Створити курс</a>
         </div>
 
         <p></p>
@@ -19,8 +19,8 @@
                         <p><a href="{% url 'course_details' course.id %}">{{ course.name }}</a></p>
                         <p>Модулів: {{ course.modules.count }}</p>
                         <p>Записів: {{ course.enrollments.count }}</p>
-                        <p><a href="{% url 'update_course' course.id %}">Редагувати</a></p>
-                        <p><a href="{% url 'delete_course' course.id %}">Видалити</a></p>
+                        <p><a href="{% url 'course_update' course.id %}">Редагувати</a></p>
+                        <p><a href="{% url 'course_delete' course.id %}">Видалити</a></p>
                     </li>
                 {% endfor %}
             </ul>
@@ -34,4 +34,3 @@
 
 </main>
 {% endblock %}
-

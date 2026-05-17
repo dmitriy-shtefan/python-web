@@ -1,12 +1,15 @@
 {% extends "courses/base.html" %}
 
-{% if course %}
-    {% block title %}Освітня Платформа - Редагування Курсу{% endblock %}
-{% else %}
-    {% block title %}Освітня Платформа - Cтворення Курсу{% endblock %}
-{% endif %}
+{% block title %}
+    {% if course %}
+        Освітня Платформа - Редагування Курсу
+    {% else %}
+        Освітня Платформа - Cтворення Курсу
+    {% endif %}
+{% endblock %}
 
-{% block content %}
+{% block main %}
+<main>
     {% if course %}
         <h1>Редагування курсу</h1>
     {% else %}
@@ -22,4 +25,5 @@
     <p>
         <a href="{% url 'teacher_dashboard' %}">Назад до курсів</a>
     </p>
+</main>
 {% endblock %}

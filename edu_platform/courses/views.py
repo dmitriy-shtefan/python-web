@@ -110,7 +110,7 @@ def teacher_dashboard(request):
 
 @login_required
 @user_passes_test(is_teacher)
-def create_course(request):
+def course_create(request):
     if request.method == 'POST':
         form = CourseForm(request.POST)
         if form.is_valid():
@@ -123,12 +123,34 @@ def create_course(request):
     else:
         form = CourseForm()
 
-    return render(request,'courses/create_course.html', {'form': form})
+    return render(request, 'courses/course_form.html', {'form': form, 'course': None})
 
 
-def update_course(request):
-    pass
+@login_required
+@user_passes_test(is_teacher)
+def course_update(request, course_id):
+    course = get_object_or_404(Course, id=course_id, teacher=request.user)
+
+    if request.method == 'POST':
+        form = CourseForm(request.POST, instance=course)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Курс було успішно оновлено!')
+            return redirect('teacher_dashboard')
+    else:
+        form = CourseForm(instance=course)
+
+    return render(request, 'courses/course_form.html', {'form': form, 'course': course})
 
 
-def delete_course(request):
-    pass
+@login_required
+@user_passes_test(is_teacher)
+def course_delete(request, course_id):
+    course = get_object_or_404(Course, id=course_id, teacher=request.user)
+
+    if request.method == 'POST':
+        course.delete()
+        messages.success(request, 'Курс було успішно видалено!')
+        return redirect('teacher_dashboard')
+
+    return render(request, 'courses/course_confirm_delete.html', {'course': course})

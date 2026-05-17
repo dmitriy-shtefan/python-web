@@ -1,8 +1,10 @@
 from django.test import TestCase
+from django.contrib.auth import get_user_model
 from django.urls import reverse
 
 from .forms import TeacherQuestionForm
 from .models import Course
+from .models import Profile
 
 
 class CourseModelTests(TestCase):
@@ -43,3 +45,96 @@ class CoursesListViewTests(TestCase):
         # Перевіряємо, що сторінка відкрилась успішно і містить назву створеного курсу.
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Django Basics')
+
+
+class TeacherCourseCrudTests(TestCase):
+    def setUp(self):
+        user_model = get_user_model()
+        self.teacher = user_model.objects.create_user(
+            username='teacher1',
+            password='password123',
+        )
+        self.other_teacher = user_model.objects.create_user(
+            username='teacher2',
+            password='password123',
+        )
+
+        Profile.objects.create(user=self.teacher, role=Profile.ROLE_TEACHER)
+        Profile.objects.create(user=self.other_teacher, role=Profile.ROLE_TEACHER)
+
+    def test_teacher_can_create_course_and_becomes_owner(self):
+        self.client.login(username='teacher1', password='password123')
+
+        response = self.client.get(reverse('course_create'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Створення курсу')
+
+        response = self.client.post(reverse('course_create'), {
+            'name': 'Teacher Course',
+            'description': 'Created by teacher',
+            'price': '1200.00',
+            'level': 'beginner',
+            'is_test': 'on',
+        })
+
+        self.assertRedirects(response, reverse('teacher_dashboard'))
+        course = Course.objects.get(name='Teacher Course')
+        self.assertEqual(course.teacher, self.teacher)
+        self.assertTrue(course.is_test)
+
+    def test_teacher_can_update_only_own_course(self):
+        own_course = Course.objects.create(
+            name='Own Course',
+            description='Initial',
+            teacher=self.teacher,
+        )
+        other_course = Course.objects.create(
+            name='Other Course',
+            description='Initial',
+            teacher=self.other_teacher,
+        )
+        self.client.login(username='teacher1', password='password123')
+
+        response = self.client.get(reverse('course_update', args=[own_course.id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Редагування курсу')
+
+        response = self.client.post(reverse('course_update', args=[own_course.id]), {
+            'name': 'Updated Course',
+            'description': 'Updated',
+            'price': '5000.00',
+            'level': 'intermediate',
+        })
+
+        self.assertRedirects(response, reverse('teacher_dashboard'))
+        own_course.refresh_from_db()
+        self.assertEqual(own_course.name, 'Updated Course')
+        self.assertEqual(own_course.level, 'intermediate')
+
+        response = self.client.get(reverse('course_update', args=[other_course.id]))
+        self.assertEqual(response.status_code, 404)
+
+    def test_teacher_can_delete_only_own_course_with_post(self):
+        own_course = Course.objects.create(
+            name='Own Course',
+            description='Initial',
+            teacher=self.teacher,
+        )
+        other_course = Course.objects.create(
+            name='Other Course',
+            description='Initial',
+            teacher=self.other_teacher,
+        )
+        self.client.login(username='teacher1', password='password123')
+
+        response = self.client.get(reverse('course_delete', args=[own_course.id]))
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(Course.objects.filter(id=own_course.id).exists())
+
+        response = self.client.post(reverse('course_delete', args=[own_course.id]))
+        self.assertRedirects(response, reverse('teacher_dashboard'))
+        self.assertFalse(Course.objects.filter(id=own_course.id).exists())
+
+        response = self.client.post(reverse('course_delete', args=[other_course.id]))
+        self.assertEqual(response.status_code, 404)
+        self.assertTrue(Course.objects.filter(id=other_course.id).exists())

@@ -26,21 +26,21 @@ from .views import ask_question
 from .views import enroll_course
 from .views import my_courses
 from .views import teacher_dashboard
-from .views import create_course
-from .views import update_course
-from .views import delete_course
+from .views import course_create
+from .views import course_update
+from .views import course_delete
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
     path('about/', AboutView.as_view(), name='about'),
     path('courses/list/', CoursesListView.as_view(), name='courses_list'),
     path('courses/<int:pk>/', CourseDetailsView.as_view(), name='course_details'),
-    path('courses/create/', create_course, name='create_course'),
-    path('courses/<int:pk>/update/', update_course, name='update_course'),
-    path('courses/<int:pk>/delete/', delete_course, name='delete_course'),
+    path('teacher/courses/create/', course_create, name='course_create'),
+    path('teacher/courses/<int:course_id>/edit/', course_update, name='course_update'),
+    path('teacher/courses/<int:course_id>/delete/', course_delete, name='course_delete'),
     path('modules/list/', ModulesListView.as_view(), name='modules_list'),
     path('ask-question/', ask_question, name='ask_question'),
     path('my-courses/', my_courses, name='my_courses'),
     path('enroll-course/', enroll_course, name='enroll_course'),
-    path('teacher-dashboard/', teacher_dashboard, name='teacher_dashboard')
+    path('teacher/dashboard/', teacher_dashboard, name='teacher_dashboard'),
 ]
