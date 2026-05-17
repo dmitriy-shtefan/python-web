@@ -8,7 +8,7 @@
 
     {% if courses %}
         <div>
-            <a href="{% url 'create_course' %}">Створити Новий Курс</a>
+            <a href="{% url 'create_course' %}">Створити курс</a>
         </div>
 
         <p></p>
@@ -17,8 +17,8 @@
                 {% for course in courses %}
                     <li>
                         <p><a href="{% url 'course_details' course.id %}">{{ course.name }}</a></p>
-                        <p>Кількість Модулів: {{ course.modules.count }}</p>
-                        <p>Кількість Активних Студентів на Курсі: {{ course.enrollments.count }}</p>
+                        <p>Модулів: {{ course.modules.count }}</p>
+                        <p>Записів: {{ course.enrollments.count }}</p>
                         <p><a href="{% url 'update_course' course.id %}">Редагувати</a></p>
                         <p><a href="{% url 'delete_course' course.id %}">Видалити</a></p>
                     </li>
@@ -26,8 +26,10 @@
             </ul>
         </div>
     {% else %}
-
-
+        <p>У вас ще немає курсів.</p>
+        <p>
+            <a href="{% url 'course_create' %}">Створити перший курс</a>
+        </p>
     {% endif %}
 
 </main>

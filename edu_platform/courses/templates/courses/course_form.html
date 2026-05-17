@@ -1,0 +1,25 @@
+{% extends "courses/base.html" %}
+
+{% if course %}
+    {% block title %}Освітня Платформа - Редагування Курсу{% endblock %}
+{% else %}
+    {% block title %}Освітня Платформа - Cтворення Курсу{% endblock %}
+{% endif %}
+
+{% block content %}
+    {% if course %}
+        <h1>Редагування курсу</h1>
+    {% else %}
+        <h1>Створення курсу</h1>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Зберегти</button>
+    </form>
+
+    <p>
+        <a href="{% url 'teacher_dashboard' %}">Назад до курсів</a>
+    </p>
+{% endblock %}

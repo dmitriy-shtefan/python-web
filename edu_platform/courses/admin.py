@@ -8,17 +8,18 @@ admin.site.register(Profile)
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ['name']
-    list_filter = ['name']
+    list_display = ['name', 'teacher__name']
+    list_filter = ['teacher__name']
 
 
 @admin.register(Module)
 class ModuleAdmin(admin.ModelAdmin):
-    list_display = []
-    list_filter = []
+    list_display = ['name', 'course__name']
+    list_filter = ['course__name']
 
 
 @admin.register(Enrollment)
 class EnrollmentAdmin(admin.ModelAdmin):
-    list_display = ['course__name', 'student__username']
-    list_filter = []
+    list_display = ['student', 'course', 'is_active', 'created_at']
+    list_filter = ['is_active', 'course']
+    search_fields = ['student__username', 'course__name']
