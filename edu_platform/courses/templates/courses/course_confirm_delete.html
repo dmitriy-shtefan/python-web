@@ -3,15 +3,15 @@
 {% block title %}Освітня Платформа - Видалення Курсу{% endblock %}
 
 {% block main %}
-<main>
+<main class="teacher-page course-delete">
     <h1>Видалення курсу</h1>
 
-    <p>Ви точно хочете видалити курс "{{ course.name }}"?</p>
+    <p class="delete-warning">Ви точно хочете видалити курс "{{ course.name }}"?</p>
 
-    <form method="post">
+    <form class="delete-form" method="post">
         {% csrf_token %}
-        <button type="submit">Так, видалити</button>
-        <a href="{% url 'teacher_dashboard' %}">Скасувати</a>
+        <button class="danger-button" type="submit">Так, видалити</button>
+        <a class="button-link secondary-link" href="{% url 'teacher_dashboard' %}">Скасувати</a>
     </form>
 </main>
 {% endblock %}

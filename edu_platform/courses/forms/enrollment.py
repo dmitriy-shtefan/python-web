@@ -1,6 +1,7 @@
 from django import forms
 
-from ..models import Course, Enrollment
+from ..models import Course
+from ..models import Enrollment
 
 
 class EnrollmentForm(forms.ModelForm):
@@ -8,9 +9,9 @@ class EnrollmentForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         if user is not None:
-                self.fields["course"].queryset = Course.objects.exclude(
-                    enrollments__student=user,
-                    enrollments__is_active=True,
+            self.fields["course"].queryset = Course.objects.exclude(
+                enrollments__student=user,
+                enrollments__is_active=True,
             )
 
     class Meta:

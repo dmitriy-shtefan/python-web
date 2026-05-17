@@ -3,32 +3,37 @@
 {% block title %}Освітня Платформа - Курси Викладача{% endblock %}
 
 {% block main %}
-<main>
+<main class="teacher-page teacher-dashboard">
     <strong>Мої Курси</strong>
 
     {% if courses %}
+        <p class="page-action">
+            <a class="button-link" href="{% url 'course_create' %}">Створити курс</a>
+        </p>
+        <br/>
         <div>
-            <a href="{% url 'course_create' %}">Створити курс</a>
-        </div>
-
-        <p></p>
-        <div>
-            <ul>
+            <ul class="teacher-course-list">
                 {% for course in courses %}
                     <li>
-                        <p><a href="{% url 'course_details' course.id %}">{{ course.name }}</a></p>
-                        <p>Модулів: {{ course.modules.count }}</p>
-                        <p>Записів: {{ course.enrollments.count }}</p>
-                        <p><a href="{% url 'course_update' course.id %}">Редагувати</a></p>
-                        <p><a href="{% url 'course_delete' course.id %}">Видалити</a></p>
+                        <p class="teacher-course-title">
+                            <a href="{% url 'course_details' course.id %}">{{ course.name }}</a>
+                        </p>
+                        <p class="teacher-course-meta">
+                            <span>Модулів: {{ course.modules.count }}</span>
+                            <span>Записів: {{ course.enrollments.count }}</span>
+                        </p>
+                        <p class="teacher-course-actions">
+                            <a href="{% url 'course_update' course.id %}">Редагувати</a>
+                            <a class="danger-link" href="{% url 'course_delete' course.id %}">Видалити</a>
+                        </p>
                     </li>
                 {% endfor %}
             </ul>
         </div>
     {% else %}
         <p>У вас ще немає курсів.</p>
-        <p>
-            <a href="{% url 'course_create' %}">Створити перший курс</a>
+        <p class="page-action">
+            <a class="button-link" href="{% url 'course_create' %}">Створити перший курс</a>
         </p>
     {% endif %}
 

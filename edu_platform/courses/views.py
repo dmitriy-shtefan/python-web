@@ -8,7 +8,7 @@ from django.views.generic import DetailView
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
-from django.contrib.auth.mixins import LoginRequiredMixin
+# from django.contrib.auth.mixins import LoginRequiredMixin # used for protecting CBV
 from django.contrib import messages
 
 from .models import Course
@@ -34,7 +34,7 @@ class HomeView(TemplateView):
 
 
 # about view
-class AboutView(LoginRequiredMixin, TemplateView):
+class AboutView(TemplateView):
     template_name = 'courses/about.html'
 
 
@@ -74,7 +74,7 @@ def ask_question(request):
 @user_passes_test(is_student)
 def enroll_course(request):
     if request.method == 'POST':
-        form = EnrollmentForm(request.POST)
+        form = EnrollmentForm(request.POST, user=request.user)
         if form.is_valid():
             course = form.cleaned_data['course']
             exists = Enrollment.objects.filter(student=request.user, course=course, is_active=True).exists()
@@ -88,7 +88,7 @@ def enroll_course(request):
                 messages.success(request=request, message='Ви успішно записалися на новий курс!')
                 return redirect('my_courses')
     else:
-        form = EnrollmentForm()
+        form = EnrollmentForm(user=request.user)
 
     return render(request, 'courses/enroll_course.html', {'form': form})
 

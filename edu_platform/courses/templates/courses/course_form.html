@@ -9,20 +9,20 @@
 {% endblock %}
 
 {% block main %}
-<main>
+<main class="teacher-page course-editor">
     {% if course %}
         <h1>Редагування курсу</h1>
     {% else %}
         <h1>Створення курсу</h1>
     {% endif %}
 
-    <form method="post">
+    <form class="teacher-form" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Зберегти</button>
     </form>
 
-    <p>
+    <p class="page-action">
         <a href="{% url 'teacher_dashboard' %}">Назад до курсів</a>
     </p>
 </main>
