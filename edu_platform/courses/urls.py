@@ -31,6 +31,7 @@ from .views import course_update
 from .views import course_delete
 
 from .api_views import course_list_api
+from .api_views import module_list_api
 
 urlpatterns = [
     # course
@@ -48,4 +49,5 @@ urlpatterns = [
     path('teacher/dashboard/', teacher_dashboard, name='teacher_dashboard'),
     # api views
     path('api/courses/list/', course_list_api, name='course_list_api'),
+    path('api/modules/list/', module_list_api, name='module_list_api'),
 ]
