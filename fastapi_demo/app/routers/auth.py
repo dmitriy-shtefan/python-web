@@ -1,7 +1,12 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter
+from fastapi import HTTPException
+from fastapi import status
 
-from ..auth import authenticate_user, create_access_token
-from ..schemas import LoginRequest, TokenResponse
+from ..auth import authenticate_user
+from ..auth import create_access_token
+
+from ..schemas import TokenResponse
+from ..schemas import LoginRequest
 
 router = APIRouter(tags=["auth"])
 

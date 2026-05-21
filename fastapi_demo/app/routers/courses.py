@@ -7,6 +7,8 @@ from ..schemas import CourseCreate
 from ..schemas import Course
 from ..data import courses
 
+from ..auth import get_current_user
+
 router = APIRouter()
 
 
@@ -34,14 +36,14 @@ async def course_get(course= Depends(get_course_or_not_found)):
 
 
 
-
 @router.post('/', response_model=CourseCreate, status_code=status.HTTP_201_CREATED)
-async def course_create(course: Course):
+async def course_create(course: Course, user = Depends(get_current_user)):
     new_course = {
         'id': len(courses) + 1,
         'title': course.title,
         'level': course.level,
         'hours': course.hours,
+        'created_by': user.username
     }
     courses.append(new_course)
     return new_course
