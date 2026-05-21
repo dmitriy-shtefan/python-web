@@ -36,8 +36,8 @@ async def course_get(course= Depends(get_course_or_not_found)):
 
 
 
-@router.post('/', response_model=CourseCreate, status_code=status.HTTP_201_CREATED)
-async def course_create(course: Course, user = Depends(get_current_user)):
+@router.post('/', response_model=Course, status_code=status.HTTP_201_CREATED)
+async def course_create(course: CourseCreate, user = Depends(get_current_user)):
     new_course = {
         'id': len(courses) + 1,
         'title': course.title,
