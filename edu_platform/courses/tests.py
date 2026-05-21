@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.urls import reverse
+from rest_framework import status
 
 from .forms import TeacherQuestionForm
 from .models import Course
@@ -138,3 +139,65 @@ class TeacherCourseCrudTests(TestCase):
         response = self.client.post(reverse('course_delete', args=[other_course.id]))
         self.assertEqual(response.status_code, 404)
         self.assertTrue(Course.objects.filter(id=other_course.id).exists())
+
+
+class CourseApiTests(TestCase):
+    def setUp(self):
+        user_model = get_user_model()
+        self.user = user_model.objects.create_user(
+            username='api_user',
+            password='password123',
+        )
+        self.course = Course.objects.create(
+            name='API Course',
+            description='Initial description',
+            price='1500.00',
+            is_test=False,
+        )
+
+    def test_put_updates_course(self):
+        self.client.login(username='api_user', password='password123')
+
+        response = self.client.put(
+            reverse('course_detail_api', args=[self.course.id]),
+            data={
+                'name': 'Updated API Course',
+                'description': 'Updated description',
+                'price': '2000.00',
+                'is_test': True,
+            },
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.course.refresh_from_db()
+        self.assertEqual(self.course.name, 'Updated API Course')
+        self.assertEqual(self.course.description, 'Updated description')
+        self.assertTrue(self.course.is_test)
+
+    def test_patch_partially_updates_course(self):
+        self.client.login(username='api_user', password='password123')
+
+        response = self.client.patch(
+            reverse('course_detail_api', args=[self.course.id]),
+            data={'name': 'Partially Updated Course'},
+            content_type='application/json',
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.course.refresh_from_db()
+        self.assertEqual(self.course.name, 'Partially Updated Course')
+        self.assertEqual(self.course.description, 'Initial description')
+
+    def test_delete_removes_course(self):
+        self.client.login(username='api_user', password='password123')
+
+        response = self.client.delete(reverse('course_detail_api', args=[self.course.id]))
+
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertFalse(Course.objects.filter(id=self.course.id).exists())
+
+    def test_detail_api_returns_404_for_missing_course(self):
+        response = self.client.get(reverse('course_detail_api', args=[999]))
+
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)

@@ -30,7 +30,13 @@ from .views import course_create
 from .views import course_update
 from .views import course_delete
 
+from .api_views import course_list_api
+from .api_views import course_detail_api
+from .api_views import module_list_api
+from .api_views import enrollments_list_api
+
 urlpatterns = [
+    # course
     path('', HomeView.as_view(), name='home'),
     path('about/', AboutView.as_view(), name='about'),
     path('courses/list/', CoursesListView.as_view(), name='courses_list'),
@@ -43,4 +49,9 @@ urlpatterns = [
     path('my-courses/', my_courses, name='my_courses'),
     path('enroll-course/', enroll_course, name='enroll_course'),
     path('teacher/dashboard/', teacher_dashboard, name='teacher_dashboard'),
+    # api views
+    path('api/courses/list/', course_list_api, name='course_list_api'),
+    path('api/courses/<int:course_id>/', course_detail_api, name='course_detail_api'),
+    path('api/modules/list/', module_list_api, name='module_list_api'),
+    path('api/enrollments/list/', enrollments_list_api, name='enrollments_list_api'),
 ]
